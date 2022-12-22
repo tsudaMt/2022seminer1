@@ -64,24 +64,30 @@ function deformedSquare(x,y){
     let v = [];
     let cp = [];
     let xIdx = round(x/scalar);
+    let yIdx = round(y/scalar);
     if(xIdx%2==0){
         xSgn = 1;
     }else{
         xSgn = -1;
+    }
+    if(yIdx%2==0){
+        ySgn = 1;
+    }else{
+        ySgn = -1;
     }
     v[0] = {x:x-0.5*scalar,y:y-0.5*scalar}
     v[1] = {x:x+0.5*scalar,y:y-0.5*scalar}
     v[2] = {x:x+0.5*scalar,y:y+0.5*scalar}    
     v[3] = {x:x-0.5*scalar,y:y+0.5*scalar}    
     //cp>>ControlPoint それぞれの辺に制御点を設定する
-    cp[0] = rotateAround(v[0],theta,midPoint(v[0],v[1]));
-    cp[1] = rotateAround(v[1],theta,midPoint(v[0],v[1]));
+    cp[0] = rotateAround(v[0],ySgn*theta,midPoint(v[0],v[1]));
+    cp[1] = rotateAround(v[1],ySgn*theta,midPoint(v[0],v[1]));
 
     cp[2] = rotateAround(v[1],xSgn*theta,midPoint(v[1],v[2]));
     cp[3] = rotateAround(v[2],xSgn*theta,midPoint(v[1],v[2]));
 
-    cp[4] = rotateAround(v[2],theta,midPoint(v[2],v[3]));
-    cp[5] = rotateAround(v[3],theta,midPoint(v[2],v[3]));
+    cp[4] = rotateAround(v[2],-ySgn*theta,midPoint(v[2],v[3]));
+    cp[5] = rotateAround(v[3],-ySgn*theta,midPoint(v[2],v[3]));
 
     cp[6] = rotateAround(v[3],-xSgn*theta,midPoint(v[3],v[0]));
     cp[7] = rotateAround(v[0],-xSgn*theta,midPoint(v[3],v[0]));
